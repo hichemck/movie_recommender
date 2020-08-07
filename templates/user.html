@@ -1,0 +1,30 @@
+{% extends "base.html" %}
+{% block content %}
+
+
+    <h1>Hello user {{user_id}}</h1>
+    <br>
+    <h4> You have {{n_ratings}} ratingss. <h4>
+    <br>
+    <h4> Your best rated films are: {{best_ratings}}  </h4>
+    <br>
+    <p> this is my list:</p>
+    <ul>
+    <li>star wars</li>
+    <li> titanic</li>
+    <li> Mean girls</li>
+    </ul>
+    <form>
+        <p>Please pick a model</p>
+        <input type="radio" id="distance" name="model" value="random">
+        <label for="random">Random</label><br>
+        <input type="radio" name="model" value="NMF">
+        <label for="NMF">NMF</label><br>
+        <input type="submit" value="let's go!!">
+    </form>
+
+    {% if model is not none %}
+        <h2>You have picked the model: {{model}} </h2>
+    {% endif %}
+
+{% endblock %}

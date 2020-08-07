@@ -1,0 +1,29 @@
+{% extends "base.html" %}
+{% block content %}
+
+<h1 class= "animate_animated animate_bounce"> An animated element</h1>
+
+    <h1> hi spiced!! </h1> 
+    <br>
+    <!-- This is a comment -->
+    <a href="https://www.imdb.com/" target="_blank">Visit imdb.com!</a>
+    <br>
+    <br>
+    <img src = {{ url_for('static', filename='holl.jpg') }} alt='Once upon a time in Hollywood' width='332' height='332' />
+    <br> 
+    <p>have you already seen?</p>
+    <ul>
+        <li>Star Wars</li>
+        <li>Titanic</li>
+        <li>Mean Girls</li>
+    </ul>
+    <br>
+    <form >
+    <label for="userID">User ID:</label><br>
+    <input type="text" name="user_id">
+    <input type="submit" value="let's go!!">
+    </form>     
+
+{% endblock %}
+
+
