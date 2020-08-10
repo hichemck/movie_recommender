@@ -2,20 +2,20 @@
 {% block content %}
 
 
-    <h1>Hello user {{user_id}}</h1>
-    <br>
-    <h4> You have {{n_ratings}} ratingss. <h4>
-    <br>
-    <h4> Your best rated films are: {{best_ratings}}  </h4>
-    <br>
-    <p> these are some famous films:</p>
-    <ul>
-    <li>star wars</li>
-    <li> titanic</li>
-    <li> Mean girls</li>
-    </ul>
+    <h1>Hello user {{user_id}}. Nice ID!</h1>
+
+    <h1> you have {{n_ratings}} ratings <h1>
+    
+    <h4> Your 5 best rated films are:  </h4>
+    
+    <ol>
+    {% for m in best_ratings%}
+    <li>{{ m }}</li>
+    {% endfor %}
+    </ol>
+
     <form>
-        <h4>Please pick a recommenration model</h4>
+        <h1>Please pick a recommendation model and the number of films to be recommended </h1>
         <input type="radio" id="distance" name="model" value="DR">
         <label for="DR">Random Recommender</label><br>
 
@@ -25,14 +25,23 @@
         <input type="radio" name="model" value="NMF">
         <label for="NMF">NMF</label><br>
 
+        <label for="k">number of recommendations:</label><br>
+        <input type="text" name="k">
+        
+
         <input type="submit" value="let's go!!">
     </form>
 
     {% if model is not none %}
         <h2>You have picked the model: {{model}} </h2>
         <br>
-        <h2>Our recommendations for you are:<br>
-            {{recommendation}}  </h2>
+        <h2>Our recommendations for you are:</h2>
+
+        <ol>
+        {% for m in recommendation%}
+        <li>{{ m }}</li>
+        {% endfor %}
+        </ol>
 
     {% endif %}
 

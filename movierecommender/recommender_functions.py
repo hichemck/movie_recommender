@@ -4,9 +4,8 @@ Contains various recommondation implementations
 
 import numpy as np
 import pandas as pd
-from movierecommender.data import ratings, proba_series, users_unseen_films
+from movierecommender.data import ratings, proba_series, users_unseen_films, movies
 
-#from movierecommender.nmf import model, Q, P
 
 
 def get_unseen_films(user_id):
@@ -28,7 +27,7 @@ def popular_films_recommender(user_id, user_item_matrix, k):
     """    
     unseen_films_ratings_sums = user_item_matrix.sum(axis=0).loc[get_unseen_films(user_id)]
     proba_series = unseen_films_ratings_sums / unseen_films_ratings_sums.sum()
-    return np.random.choice(proba_series.index, p=proba_series.values, size=5)
+    return np.random.choice(proba_series.index, p=proba_series.values, size=k)
    
 
 def nmf_recommender(user_id, user_item_matrix, k, model):
@@ -50,3 +49,6 @@ def nmf_recommender(user_id, user_item_matrix, k, model):
     output = final_df[:k].index.tolist()    
     
     return output
+
+def convert_to_title_list(film_ids_list):
+    return movies[movies['movieId'].isin(film_ids_list)]['title'].values

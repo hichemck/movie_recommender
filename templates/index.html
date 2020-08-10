@@ -1,19 +1,6 @@
 {% extends "base.html" %}
 {% block content %}
 
-<h1 class= "animate_animated animate_bounce"> An animated element</h1>
-
-<div class="container">
-    <div class="row">
-        <img src={{ url_for('static', filename='holl.jpg')}} width="=100%">
-    </div>
-    <div class="row">
-        <img src={{ url_for('static', filename='holl.jpg')}} width="=100%">
-    </div>
-    <div class="row">
-        <img src={{ url_for('static', filename='holl.jpg')}} width="=100%">
-    </div>
-</div>
 
 <div class='row'>
     <h1 class="superlarge animate__animated animate__sliderInleft">
@@ -37,6 +24,8 @@
         <li>Titanic</li>
         <li>Mean Girls</li>
     </ul>
+    <br>
+    <h2>launch recommender</h2>
     <br>
     <form >
     <label for="userID">User ID:</label><br>

@@ -2,7 +2,8 @@ import pickle
 from flask import Flask, render_template, request, redirect, url_for
 from movierecommender.data import ratings
 from movierecommender.recommender_functions import (dummy_recommender, 
-                            popular_films_recommender, nmf_recommender)
+                            popular_films_recommender, nmf_recommender,
+                            convert_to_title_list)
 
 
 with open('./models/nmf.pickle', 'rb') as f:
@@ -27,19 +28,25 @@ def user(user_id):
     user_id = int(user_id)
     recommendation = []
     model = request.args.get('model')
+    k = request.args.get('k')
+    if k is not None :
+            k = int(k)
     print(model)
 
     if model == 'DR':
-        recommendation = dummy_recommender(user_id, ratings, 5)
-        print(dummy_recommender(user_id, ratings, 5))
+        recommendation = dummy_recommender(user_id, ratings, k)
+        recommendation = convert_to_title_list(recommendation)
     elif model == 'PFR':
-        recommendation = popular_films_recommender(user_id, ratings, 5)
+        recommendation = popular_films_recommender(user_id, ratings, k)
+        recommendation = convert_to_title_list(recommendation)
     elif model == 'NMF':
-        recommendation = nmf_recommender(user_id, ratings, 5, nmf_model)
-
+        recommendation = nmf_recommender(user_id, ratings, k, nmf_model)
+        recommendation = convert_to_title_list(recommendation)
+    
     ratings_user = ratings.loc[int(user_id)]
     n_ratings = ratings_user.count()
     best_ratings = ratings_user.sort_values(ascending=False).index[:5].values
+    best_ratings = convert_to_title_list(best_ratings)
 
     return render_template(
         'user.html',
@@ -47,7 +54,8 @@ def user(user_id):
         n_ratings=n_ratings,
         model=model,
         best_ratings=best_ratings,
-        recommendation=recommendation)
+        recommendation=recommendation,
+        k=k)
 
 
 
