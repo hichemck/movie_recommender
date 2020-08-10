@@ -1,10 +1,9 @@
-from flask import Flask, render_template, request, redirect, url_for
-import pandas as pd
-import numpy as np
-from movierecommender.data import ratings
-from movierecommender.recommender_functions import dummy_recommender, popular_films_recommender, nmf_recommender
-#from movierecommender.nmf import model, Q, P
 import pickle
+from flask import Flask, render_template, request, redirect, url_for
+from movierecommender.data import ratings
+from movierecommender.recommender_functions import (dummy_recommender, 
+                            popular_films_recommender, nmf_recommender)
+
 
 with open('./models/nmf.pickle', 'rb') as f:
     nmf_model = pickle.load(f)
@@ -17,9 +16,10 @@ app = Flask(__name__)
 def index():
     user_id = request.args.get('user_id')
     if user_id is None:
-        return render_template('index.html')
-    else: 
-        return redirect(url_for('user', user_id=user_id))    
+        output = render_template('index.html')
+    else:
+        output = redirect(url_for('user', user_id=user_id))
+    return output
 
 
 @app.route('/user/<user_id>')
@@ -36,11 +36,18 @@ def user(user_id):
         recommendation = popular_films_recommender(user_id, ratings, 5)
     elif model == 'NMF':
         recommendation = nmf_recommender(user_id, ratings, 5, nmf_model)
-    
+
     ratings_user = ratings.loc[int(user_id)]
     n_ratings = ratings_user.count()
     best_ratings = ratings_user.sort_values(ascending=False).index[:5].values
-    return render_template('user.html', user_id=user_id, n_ratings=n_ratings, model=model, best_ratings=best_ratings, recommendation= recommendation)
+
+    return render_template(
+        'user.html',
+        user_id=user_id,
+        n_ratings=n_ratings,
+        model=model,
+        best_ratings=best_ratings,
+        recommendation=recommendation)
 
 
 
@@ -52,5 +59,3 @@ def film(film_id):
 
 if __name__ == "__main__":
     app.run(debug=True)
-
-
