@@ -16,3 +16,6 @@ my own recommender system with different methods/models.
     - Collaborative Filtering
 - create a Flask Web App and a Web Form where the user can choose between different recommendation techniques
 
+# Recommender Web Application
+
+Hier is the [link](https://hichemck-recommender.herokuapp.com/) to the web application
