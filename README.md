@@ -18,4 +18,4 @@ my own recommender system with different methods/models.
 
 # Recommender Web Application
 
-Hier is the [link](https://hichemck-recommender.herokuapp.com/) to the web application
+Hier is the [link](https://hichemck-recommender.herokuapp.com/) to the web application.
