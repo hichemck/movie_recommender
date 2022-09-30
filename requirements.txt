@@ -11,7 +11,7 @@ idna==2.9
 itsdangerous==1.1.0
 jeepney==0.4.3
 Jinja2==2.11.2
-joblib==0.14.1
+joblib==1.2.0
 keyring==21.2.0
 MarkupSafe==1.1.1
 numpy==1.18.1
